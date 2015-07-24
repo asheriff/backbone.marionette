@@ -3,11 +3,22 @@ describe('view ui elements', function() {
 
   beforeEach(function() {
     this.templateFn = _.template('<div id="<%= name %>"></div>');
-    this.uiHash = {foo: '#foo', bar: '#bar'};
+    this.uiHash = {foo: '#foo', bar: '#bar', itself: ':el'};
     this.model = this.model = new Backbone.Model({name: 'foo'});
     this.View = Marionette.ItemView.extend({
       template: this.templateFn,
       ui: this.uiHash
+    });
+  });
+
+  describe('when the selector is ":el"', function() {
+    beforeEach(function() {
+      this.view = new this.View({model: this.model});
+      this.view.render();
+    });
+
+    it('should bind to the view.$el', function() {
+      expect(this.view.ui.itself).to.be.equal(this.view.$el);
     });
   });
 

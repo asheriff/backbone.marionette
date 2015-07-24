@@ -201,7 +201,7 @@ Marionette.View = Backbone.View.extend({
 
     // bind each of the selectors
     _.each(bindings, function(selector, key) {
-      this.ui[key] = this.$(selector);
+      this.ui[key] = selector === ':el' ? this.$el : this.$(selector);
     }, this);
   },
 
